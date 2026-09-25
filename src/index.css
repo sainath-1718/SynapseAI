@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #050908;
+    color: #e6fff5;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.2);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 136, 0.4);
+  }
+
+  ::selection {
+    background: rgba(0, 255, 136, 0.25);
+    color: #e6fff5;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: rgba(15, 26, 23, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 136, 0.15);
+  }
+
+  .glass-panel-strong {
+    background: rgba(10, 18, 16, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .terminal-text {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .bg-gradient-radial {
+    background-image: radial-gradient(var(--tw-gradient-stops));
+  }
+}
+
+/* ============================================================
+   STEP 2 — FULL BACKGROUND + FIXED PORTRAIT HOLOGRAM EXPERIENCE
+   ============================================================ */
+.cinematic-upload {
+  position:relative;
+  min-height:calc(100vh - 86px);
+  height:calc(100vh - 86px);
+  width:100%;
+  overflow:hidden;
+  border:1px solid rgba(0,255,136,.18);
+  background:#020706;
+  box-shadow:inset 0 0 120px rgba(0,255,136,.035);
+}
+.cinematic-upload__background { position:absolute; inset:0; overflow:hidden; background:#020706; }
+.cinematic-upload__background img,
+.cinematic-upload__background video {
+  width:100%; height:100%; display:block; object-fit:cover; object-position:center;
+  filter:blur(18px) brightness(.38) saturate(.9);
+  transform:scale(1.08);
+}
+.cinematic-upload__background-vignette {
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(0,255,136,.12), transparent 32%),
+    linear-gradient(90deg, rgba(0,5,4,.54), transparent 28%, transparent 72%, rgba(0,5,4,.54)),
+    linear-gradient(180deg, rgba(0,5,4,.38), transparent 25%, transparent 72%, rgba(0,5,4,.5));
+}
+.cinematic-upload__chrome { position:absolute; inset:0 0 auto 0; z-index:20; display:flex; align-items:flex-start; justify-content:space-between; padding:25px 27px; pointer-events:none; }
+.cinematic-upload__brand { color:#56ff9a; font:700 16px/1 "Times New Roman",serif; letter-spacing:.48em; text-shadow:0 0 18px rgba(0,255,136,.5); }
+.cinematic-upload__agent { margin-top:9px; color:rgba(181,255,214,.48); font:10px/1 "Times New Roman",serif; letter-spacing:.34em; }
+.cinematic-upload__state { display:flex; align-items:center; gap:9px; padding:9px 14px; border:1px solid rgba(0,255,136,.2); border-radius:999px; color:rgba(210,255,228,.68); background:rgba(2,16,12,.55); backdrop-filter:blur(12px); font:10px/1 ui-monospace,SFMono-Regular,monospace; letter-spacing:.16em; }
+.cinematic-upload__dot { width:7px; height:7px; border-radius:50%; background:#263530; }
+.cinematic-upload__dot.is-running { background:#56ff9a; box-shadow:0 0 13px #56ff9a; animation:synapsePulse 1s infinite; }
+.cinematic-upload__dot.is-ready { background:#56ff9a; box-shadow:0 0 15px #56ff9a; }
+.cinematic-upload__stage { position:absolute; inset:0; z-index:5; display:flex; align-items:center; justify-content:center; }
+.cinematic-upload__portrait {
+  position:relative;
+  width:min(430px,38vw);
+  height:min(760px,88vh);
+  aspect-ratio:9/16;
+  overflow:hidden;
+  border-radius:18px;
+  box-shadow:0 0 85px rgba(0,255,136,.15), 0 0 160px rgba(0,255,136,.05);
+}
+.cinematic-upload__portrait > video,
+.cinematic-upload__portrait > img {
+  position:absolute; inset:0; width:100%; height:100%; display:block;
+  object-fit:contain; object-position:center; background:transparent;
+}
+.cinematic-upload__portrait > video { opacity:0; }
+.cinematic-upload__portrait > video.is-video { opacity:1; }
+.cinematic-upload__portrait > img { opacity:1; }
+.cinematic-upload__portrait > video.is-video + img { opacity:0; }
+.cinematic-upload__portrait-frame { position:absolute; inset:0; border:1px solid rgba(0,255,136,.16); border-radius:18px; pointer-events:none; box-shadow:inset 0 0 45px rgba(0,255,136,.045); }
+.cinematic-upload__start-wrap { position:absolute; z-index:12; left:50%; bottom:5.5%; transform:translateX(-50%); text-align:center; }
+.cinematic-upload__start { min-width:156px; padding:13px 36px; border-radius:999px; border:1px solid rgba(86,255,154,.8); background:rgba(2,25,17,.86); color:#dffff0; font:700 15px "Times New Roman",serif; letter-spacing:.3em; cursor:pointer; box-shadow:0 0 26px rgba(0,255,136,.18), inset 0 0 20px rgba(0,255,136,.04); transition:.22s ease; }
+.cinematic-upload__start:hover { transform:translateY(-2px) scale(1.035); box-shadow:0 0 38px rgba(0,255,136,.36), inset 0 0 20px rgba(0,255,136,.08); }
+.cinematic-upload__hint { margin-top:10px; color:rgba(200,255,220,.4); font:9px ui-monospace,SFMono-Regular,monospace; letter-spacing:.18em; }
+.cinematic-upload__loading { position:absolute; z-index:12; bottom:5.5%; display:flex; align-items:center; gap:9px; color:rgba(210,255,226,.55); font:10px ui-monospace,SFMono-Regular,monospace; letter-spacing:.18em; }
+.cinematic-upload__loader { width:8px; height:8px; border-radius:50%; background:#56ff9a; box-shadow:0 0 15px #56ff9a; animation:synapsePulse .8s infinite; }
+/* Exact panel area from the supplied 720x1280 hologram frame: x≈335–650, y≈95–340. */
+.cinematic-upload__hologram-hitbox {
+  position:absolute;
+  z-index:18;
+  left:calc(50% + 6.95vw);
+  top:17%;
+  width:min(16.7vw, 188px);
+  height:min(16.7vh, 145px);
+  transform:translate(-50%,-50%);
+  border:0;
+  border-radius:18px;
+  background:transparent;
+  cursor:pointer;
+}
+.cinematic-upload__hologram-hitbox:hover {
+  background:rgba(86,255,154,.035);
+  box-shadow:0 0 35px rgba(0,255,136,.18), inset 0 0 25px rgba(0,255,136,.05);
+}
+.cinematic-upload__receiving { position:absolute; z-index:22; bottom:5.5%; display:flex; align-items:center; gap:10px; padding:12px 17px; border:1px solid rgba(86,255,154,.4); border-radius:999px; background:rgba(2,19,13,.84); color:#caffdc; font:10px ui-monospace,SFMono-Regular,monospace; letter-spacing:.17em; box-shadow:0 0 28px rgba(0,255,136,.14); }
+.cinematic-upload__error { position:absolute; z-index:30; left:50%; bottom:3%; transform:translateX(-50%); color:#ff9e9e; background:rgba(40,4,7,.88); border:1px solid rgba(255,90,100,.3); border-radius:9px; padding:8px 12px; font:10px ui-monospace,SFMono-Regular,monospace; }
+.cinematic-upload--complete { min-height:120px; height:auto; border-radius:18px; }
+.cinematic-upload__result { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:24px; }
+.cinematic-upload__check { width:36px; height:36px; border-radius:50%; display:grid; place-items:center; color:#56ff9a; background:rgba(0,255,136,.08); border:1px solid rgba(0,255,136,.25); box-shadow:0 0 22px rgba(0,255,136,.12); }
+.cinematic-upload__reset { padding:8px 13px; border:1px solid rgba(0,255,136,.24); border-radius:8px; background:rgba(0,255,136,.05); color:#8dffb6; font:10px ui-monospace,SFMono-Regular,monospace; letter-spacing:.1em; }
+@keyframes synapsePulse { 50% { opacity:.38; transform:scale(.72); } }
+@media (max-width:900px) {
+  .cinematic-upload { min-height:calc(100vh - 76px); height:calc(100vh - 76px); }
+  .cinematic-upload__portrait { width:min(390px,55vw); height:min(700px,82vh); }
+}
+@media (max-width:600px) {
+  .cinematic-upload__chrome { padding:18px; }
+  .cinematic-upload__state { display:none; }
+  .cinematic-upload__portrait { width:min(350px,82vw); height:min(620px,80vh); }
+  .cinematic-upload__start-wrap { bottom:4%; }
+  .cinematic-upload__hologram-hitbox { left:68%; top:17%; width:43%; height:16%; }
+}
+
+/* ============================================================
+   STEP 1 — CINEMATIC INTRO
+   ============================================================ */
+.synapse-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #000;
+}
+.synapse-intro video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+.synapse-intro__skip {
+  position: absolute;
+  right: 28px;
+  bottom: 26px;
+  padding: 10px 18px;
+  border: 1px solid rgba(86,255,154,.65);
+  border-radius: 999px;
+  background: rgba(2,12,8,.62);
+  color: #dffff0;
+  font: 700 12px "Times New Roman", serif;
+  letter-spacing: .18em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(0,255,136,.14);
+  transition: .2s ease;
+}
+.synapse-intro__skip:hover {
+  background: rgba(0,255,136,.10);
+  border-color: rgba(86,255,154,.95);
+  box-shadow: 0 0 30px rgba(0,255,136,.28);
+  transform: translateY(-1px);
+}
